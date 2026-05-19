@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ciudad del Futuro · UDES 2085</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cyan:   #00f5ff;
+      --blue:   #0066ff;
+      --purple: #7b2fff;
+      --gold:   #ffd700;
+      --green:  #00ff88;
+      --dark:   #020818;
+      --dark2:  #040e24;
+      --dark3:  #071530;
+      --text:   #c8e0ff;
+      --white:  #eaf6ff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── STARS BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(0,102,255,.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,245,255,.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 90%, rgba(123,47,255,.10) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(2,8,24,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,245,255,.15);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem; font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: .15em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,245,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPan 20s linear infinite;
+    }
+    @keyframes gridPan { from { transform: translateY(0); } to { transform: translateY(60px); } }
+
+    .hero-city {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 260px;
+      background: linear-gradient(to top, var(--dark) 0%, transparent 100%);
+      display: flex; align-items: flex-end; justify-content: center; gap: 6px;
+      padding: 0 2rem;
+    }
+    .building {
+      background: linear-gradient(to top, #0a1a3a, #0d2050);
+      border: 1px solid rgba(0,245,255,.2);
+      position: relative;
+      animation: buildingPulse 3s ease-in-out infinite alternate;
+    }
+    .building::after {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 2px; height: 8px;
+      background: var(--cyan);
+      animation: blink 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes buildingPulse { from { box-shadow: 0 0 8px rgba(0,245,255,.15); } to { box-shadow: 0 0 20px rgba(0,245,255,.35); } }
+    @keyframes blink { from { opacity: 1; } to { opacity: .2; } }
+
+    .hero-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 1.5rem;
+      position: relative; z-index: 2;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      position: relative; z-index: 2;
+      animation: fadeUp .8s .15s ease both;
+    }
+    .hero-title span { color: var(--cyan); }
+    .hero-sub {
+      max-width: 600px; margin: 1.5rem auto 0;
+      font-size: 1rem; line-height: 1.7;
+      color: rgba(200,224,255,.65);
+      position: relative; z-index: 2;
+      animation: fadeUp .8s .3s ease both;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      position: relative; z-index: 2;
+      animation: fadeUp .8s .45s ease both;
+    }
+    .btn {
+      display: inline-block; padding: .75rem 2rem;
+      font-family: 'Orbitron', sans-serif; font-size: .75rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      cursor: pointer; transition: all .25s;
+    }
+    .btn-primary {
+      background: var(--cyan); color: var(--dark);
+      border: 2px solid var(--cyan);
+    }
+    .btn-primary:hover { background: transparent; color: var(--cyan); box-shadow: 0 0 24px rgba(0,245,255,.5); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 2px solid rgba(200,224,255,.25);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── SECTION COMMONS ─── */
+    section { position: relative; z-index: 1; }
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
+    .section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .68rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: .75rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 32px; height: 1px; background: var(--cyan);
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 800;
+      line-height: 1.15; margin-bottom: 1.2rem;
+    }
+    .section-desc {
+      font-size: 1rem; line-height: 1.75;
+      color: rgba(200,224,255,.65); max-width: 640px;
+      margin-bottom: 3rem;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,255,.3), transparent);
+      margin: 0 2rem;
+    }
+
+    /* ─── CARDS GRID ─── */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: rgba(4,14,36,.7);
+      border: 1px solid rgba(0,245,255,.12);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: all .3s;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, var(--cyan)), transparent);
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,245,255,.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 30px rgba(0,245,255,.08);
+    }
+    .card-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+      display: block;
+    }
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .95rem; font-weight: 600;
+      color: var(--white); margin-bottom: .6rem;
+    }
+    .card-text { font-size: .88rem; line-height: 1.65; color: rgba(200,224,255,.6); }
+
+    /* ─── IMAGE PLACEHOLDER ─── */
+    .img-block {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #040e24 0%, #071530 100%);
+      border: 1px dashed rgba(0,245,255,.3);
+      border-radius: 4px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .img-block img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      display: none; /* show when src is set */
+    }
+    .img-block .img-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: .8rem;
+    }
+    .img-block .img-icon { font-size: 2.5rem; opacity: .4; }
+    .img-block .img-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .7rem; letter-spacing: .2em; color: rgba(0,245,255,.5);
+    }
+    .img-block .img-hint {
+      font-size: .78rem; color: rgba(200,224,255,.35);
+      max-width: 260px; line-height: 1.5;
+    }
+    /* Scanline effect on img blocks */
+    .img-block::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(transparent, transparent 3px, rgba(0,245,255,.02) 3px, rgba(0,245,255,.02) 4px);
+      pointer-events: none;
+    }
+    .img-block{
+  width: 100%;
+  min-height: 320px;
+
+  background: linear-gradient(135deg, #040e24 0%, #071530 100%);
+  border: 1px dashed rgba(0,245,255,.3);
+  border-radius: 10px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGEN */
+.img-block img{
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    transition: transform .35s ease;
+
+    cursor: zoom-in;
+  }
+
+  /* Hover elegante */
+  .img-block:hover img{
+    transform: scale(1.03);
+  }
+
+  /* Placeholder */
+  .img-placeholder{
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: .8rem;
+  }
+
+  /* Scanlines */
+  .img-block::after{
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 3px,
+      rgba(0,245,255,.02) 3px,
+      rgba(0,245,255,.02) 4px
+    );
+
+    pointer-events: none;
+  }
+
+    /* ─── TWO-COL LAYOUT ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .two-col.reverse .col-visual { order: -1; }
+    @media (max-width: 768px) {
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse .col-visual { order: 0; }
+    }
+
+    /* ─── STAT BAR ─── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .stat-item { text-align: center; padding: 1.5rem; border: 1px solid rgba(0,245,255,.1); border-radius: 4px; }
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: var(--cyan);
+    }
+    .stat-label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(200,224,255,.5); margin-top: .3rem; }
+
+    /* ─── ZONE MAP (urban org) ─── */
+    .zone-map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1rem; height: 340px;
+    }
+    .zone {
+      border-radius: 4px; padding: 1.2rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden;
+      cursor: default; transition: transform .3s;
+    }
+    .zone:hover { transform: scale(1.02); z-index: 2; }
+    .zone-residential { background: linear-gradient(135deg, #0a2040, #0d3060); border: 1px solid rgba(0,102,255,.35); grid-column: 1; grid-row: 1/3; }
+    .zone-commercial  { background: linear-gradient(135deg, #200a40, #35107a); border: 1px solid rgba(123,47,255,.35); }
+    .zone-tech        { background: linear-gradient(135deg, #0a2020, #0d4040); border: 1px solid rgba(0,245,255,.35); }
+    .zone-green       { background: linear-gradient(135deg, #0a2010, #0d4020); border: 1px solid rgba(0,255,136,.35); grid-column: 2/4; }
+    .zone-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+    }
+    .zone-residential .zone-name { color: #6699ff; }
+    .zone-commercial  .zone-name { color: #bb88ff; }
+    .zone-tech        .zone-name { color: var(--cyan); }
+    .zone-green       .zone-name { color: var(--green); }
+    .zone-desc { font-size: .72rem; color: rgba(200,224,255,.5); margin-top: .3rem; line-height: 1.4; }
+    .zone-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.6rem; opacity: .3; }
+
+    /* ─── SERVICES (energy/water/waste) ─── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media(max-width:720px) { .services-grid { grid-template-columns: 1fr; } }
+    .service-card {
+      background: rgba(4,14,36,.8);
+      border: 1px solid rgba(0,245,255,.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .service-header {
+      padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: .8rem;
+      border-bottom: 1px solid rgba(0,245,255,.08);
+    }
+    .service-icon { font-size: 1.4rem; }
+    .service-title { font-family: 'Orbitron', sans-serif; font-size: .8rem; font-weight: 600; color: var(--white); }
+    .service-body { padding: 1.5rem; }
+    .service-img { margin-bottom: 1rem; aspect-ratio: 16/9; }
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .service-list li { font-size: .82rem; color: rgba(200,224,255,.6); display: flex; gap: .5rem; }
+    .service-list li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; }
+
+    /* ─── TRANSPORT TIMELINE ─── */
+    .transport-tabs { display: flex; gap: 0; margin-bottom: 2rem; border: 1px solid rgba(0,245,255,.15); border-radius: 4px; overflow: hidden; }
+    .tab-btn {
+      flex: 1; padding: .7rem 1rem;
+      background: transparent; border: none;
+      font-family: 'Exo 2', sans-serif;
+      font-size: .8rem; letter-spacing: .08em;
+      color: rgba(200,224,255,.5);
+      cursor: pointer; transition: all .2s;
+      border-right: 1px solid rgba(0,245,255,.15);
+    }
+    .tab-btn:last-child { border-right: none; }
+    .tab-btn.active { background: rgba(0,245,255,.1); color: var(--cyan); }
+    .tab-btn:hover:not(.active) { background: rgba(0,245,255,.05); color: var(--text); }
+    .tab-content { display: none; }
+    .tab-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    @media(max-width:640px) { .tab-content.active { grid-template-columns: 1fr; } }
+    .transport-info h3 { font-family:'Orbitron',sans-serif; font-size:.95rem; color:var(--white); margin-bottom:.8rem; }
+    .transport-info p { font-size:.88rem; line-height:1.7; color:rgba(200,224,255,.6); margin-bottom:1rem; }
+    .tag-row { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .tag {
+      padding:.25rem .75rem; font-size:.72rem; letter-spacing:.08em;
+      border-radius:2px; border:1px solid rgba(0,245,255,.25);
+      color:rgba(0,245,255,.8); background:rgba(0,245,255,.06);
+    }
+
+    /* ─── UDES SECTION ─── */
+    #udes { background: linear-gradient(180deg, var(--dark) 0%, #040c28 50%, var(--dark) 100%); }
+    .udes-header {
+      text-align: center; padding-bottom: 3rem;
+    }
+    .udes-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .5rem 1.2rem;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .7rem; letter-spacing: .2em;
+      color: var(--gold); margin-bottom: 1.5rem;
+      background: rgba(255,215,0,.06);
+    }
+    .udes-title { color: var(--white); }
+    .udes-title span { color: var(--gold); }
+
+    .udes-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .udes-card {
+      background: linear-gradient(135deg, rgba(10,20,50,.8), rgba(4,14,36,.9));
+      border: 1px solid rgba(255,215,0,.15);
+      border-radius: 4px; padding: 2rem;
+      transition: all .3s;
+    }
+    .udes-card:hover { border-color: rgba(255,215,0,.4); box-shadow: 0 0 30px rgba(255,215,0,.07); transform: translateY(-4px); }
+    .udes-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .udes-card-title { font-family:'Orbitron',sans-serif; font-size:.9rem; color:var(--gold); margin-bottom:.6rem; }
+    .udes-card-text { font-size:.85rem; line-height:1.65; color:rgba(200,224,255,.6); }
+
+    .udes-showcase {
+      margin-top: 4rem;
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center;
+    }
+    @media(max-width:768px) { .udes-showcase { grid-template-columns: 1fr; } }
+    .udes-showcase-text h3 { font-family:'Orbitron',sans-serif; font-size:1.2rem; color:var(--gold); margin-bottom:1rem; }
+    .udes-showcase-text p { font-size:.9rem; line-height:1.75; color:rgba(200,224,255,.65); margin-bottom:1.2rem; }
+    .udes-list { list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .udes-list li { display:flex; gap:.75rem; align-items:flex-start; font-size:.88rem; color:rgba(200,224,255,.65); line-height:1.5; }
+    .udes-list li::before { content:'◆'; color:var(--gold); font-size:.6rem; margin-top:.3rem; flex-shrink:0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(0,245,255,.1);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-logo { font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:800; color:var(--cyan); margin-bottom:.5rem; }
+    .footer-sub { font-size:.8rem; color:rgba(200,224,255,.35); }
+    .footer-divider { width:120px; height:1px; background:linear-gradient(90deg,transparent,rgba(0,245,255,.3),transparent); margin:1.5rem auto; }
+    .footer-credits { font-size:.75rem; color:rgba(200,224,255,.25); line-height:1.8; }
+
+    /* ─── SCROLL FADE-IN ─── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE NAV ─── */
+    @media(max-width:768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+    }
+
+    /* ─── GLOW LINE ACCENT ─── */
+    .glow-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--blue), var(--purple), transparent);
+      margin: 0;
+      opacity: .6;
+    }
+
+    /* MODAL */
+    #imageModal{
+      position: fixed;
+      inset: 0;
+
+      background: rgba(0,0,0,.92);
+
+      display: none;
+
+      justify-content: center;
+      align-items: center;
+
+      z-index: 99999;
+
+      backdrop-filter: blur(8px);
+    }
+
+    #modalImg{
+      max-width: 92%;
+      max-height: 92%;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 0 40px rgba(0,245,255,.25);
+
+      animation: zoomIn .3s ease;
+    }
+
+    #closeModal{
+      position: absolute;
+
+      top: 25px;
+      right: 40px;
+
+      font-size: 3rem;
+
+      color: white;
+
+      cursor: pointer;
+
+      font-family: Arial;
+    }
+
+    @keyframes zoomIn{
+      from{
+        transform: scale(.7);
+        opacity: 0;
+      }
+
+      to{
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<!-- MODAL ZOOM -->
+<div id="imageModal">
+  <span id="closeModal">&times;</span>
+  <img id="modalImg">
+</div>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">UDES · CIUDAD 2085</a>
+  <ul class="nav-links">
+    <li><a href="#arquitectura">Arquitectura</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#movilidad">Movilidad</a></li>
+    <li><a href="#udes">UDES Futuro</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Skyline animado -->
+  <div class="hero-city" id="skyline"></div>
+
+  <p class="hero-eyebrow">Proyecto de Desarrollo Web · UDES 2026</p>
+  <h1 class="hero-title">La <span>Ciudad</span> del<br>Futuro</h1>
+  <p class="hero-sub">Una visión de la metrópolis inteligente del año 2085: arquitectura biointeligente, energía limpia, movilidad autónoma y la UDES liderando el conocimiento del mañana.</p>
+  <div class="hero-cta">
+    <a href="#arquitectura" class="btn btn-primary">Explorar Ciudad</a>
+    <a href="#udes" class="btn btn-ghost">Pabellón UDES</a>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ARQUITECTURA -->
+<section id="arquitectura">
+  <div class="section-wrap">
+    <div class="section-label">Módulo 01</div>
+    <h2 class="section-title reveal">Organización Urbana<br>y Arquitectura</h2>
+    <p class="section-desc reveal">La ciudad del futuro organiza su territorio en cuatro grandes zonas funcionales, conectadas por redes de datos y transporte inteligente, con cero huella de carbono como meta para 2085.</p>
+
+    <div class="stats-row reveal">
+      <div class="stat-item"><div class="stat-num">4.2M</div><div class="stat-label">Habitantes</div></div>
+      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Energía Renovable</div></div>
+      <div class="stat-item"><div class="stat-num">340</div><div class="stat-label">Edificios Inteligentes</div></div>
+      <div class="stat-item"><div class="stat-num">60%</div><div class="stat-label">Área Verde</div></div>
+    </div>
+
+    <!-- Mapa de zonas -->
+    <div class="two-col reveal">
+      <div>
+        <div class="zone-map">
+          <div class="zone zone-residential">
+            <span class="zone-icon">🏠</span>
+            <div class="zone-name">Zona Residencial</div>
+            <div class="zone-desc">Viviendas ecosostenibles con huertos verticales, paneles solares integrados y gestión autónoma del agua.</div>
+          </div>
+          <div class="zone zone-commercial">
+            <span class="zone-icon">🏢</span>
+            <div class="zone-name">Zona Comercial</div>
+            <div class="zone-desc">Torres bioclimáticas con fachadas dinámicas y comercio adaptativo impulsado por IA.</div>
+          </div>
+          <div class="zone zone-tech">
+            <span class="zone-icon">⚡</span>
+            <div class="zone-name">Zona Tecnológica</div>
+            <div class="zone-desc">Hub de innovación con laboratorios cuánticos, centros de datos y startups de deep tech.</div>
+          </div>
+          <div class="zone zone-green">
+            <span class="zone-icon">🌿</span>
+            <div class="zone-name">Corredor Verde Urbano</div>
+            <div class="zone-desc">Parques biointeligentes que regulan la temperatura, limpian el aire y almacenan agua pluvial.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--white);margin-bottom:1rem;">Edificios Inteligentes</h3>
+        <p style="font-size:.9rem;line-height:1.75;color:rgba(200,224,255,.65);margin-bottom:1.5rem;">
+          Los rascacielos de vidrio curvo integran IA ambiental: ajustan temperatura, iluminación y ventilación en tiempo real según ocupación y clima. Cada fachada genera energía con células fotovoltaicas de tercera generación.
+        </p>
+
+        <!-- IMAGEN 1: Edificios inteligentes -->
+        <div class="img-block" id="img-edificios">
+
+          <img 
+            src="img/Red_edificios.png" 
+            alt="Edificios inteligentes ciudad futurista"
+          >
+
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;">
+      <h3 style="font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--white);margin-bottom:1.5rem;">Tipos de Construcción del Futuro</h3>
+      <div class="cards">
+        <div class="card" style="--card-accent: #6699ff;">
+          <span class="card-icon">🏫</span>
+          <div class="card-title">Colegios del Futuro</div>
+          <div class="card-text">Aulas sin paredes físicas: hologramas interactivos proyectan entornos de aprendizaje inmersivos. Techos jardín y energía autosuficiente en cada instalación educativa.</div>
+        </div>
+        <div class="card" style="--card-accent: var(--cyan);">
+          <span class="card-icon">🔬</span>
+          <div class="card-title">Centros de Innovación</div>
+          <div class="card-text">Laboratorios de fabricación molecular, impresión 4D y bioingeniería. Espacios de co-creación abiertos 24/7 conectados a redes globales de conocimiento.</div>
+        </div>
+        <div class="card" style="--card-accent: var(--green);">
+          <span class="card-icon">🌱</span>
+          <div class="card-title">Casas Ecosostenibles</div>
+          <div class="card-text">Construidas con materiales vivos que se autoreparan. Sistemas integrados de captación pluvial, compostaje automático y producción de alimentos en módulos verticales.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICIOS PÚBLICOS -->
+<section id="servicios">
+  <div class="section-wrap">
+    <div class="section-label">Módulo 02</div>
+    <h2 class="section-title reveal">Matriz de Servicios Públicos<br>Ecoeficientes</h2>
+    <p class="section-desc reveal">Tres pilares sostienen la vida urbana del futuro: energía limpia ilimitada, agua purificada en ciclo cerrado y residuos convertidos en recurso. Todos monitoreados en tiempo real por IA distribuida.</p>
+
+    <div class="services-grid reveal">
+
+      <!-- Energía -->
+      <div class="service-card">
+        <div class="service-header">
+          <span class="service-icon">⚡</span>
+          <div class="service-title">Red Eléctrica Inteligente</div>
+        </div>
+        <div class="service-body">
+          <!-- IMAGEN 2: Red eléctrica -->
+          <div class="img-block service-img" id="img-energia">
+            <img 
+              src="img/Red_electrica.png" 
+              alt="Red eléctrica ciudad futurista"
+            >
+
+          </div>
+          <ul class="service-list">
+            <li>Parque solar fotovoltaico de 3a generación</li>
+            <li>Aerogeneradores urbanos integrados</li>
+            <li>Planta de fusión nuclear compacta</li>
+            <li>Planta de hidrógeno verde</li>
+            <li>Microrredes distritales con baterías cuánticas</li>
+            <li>Centro de control eléctrico con IA predictiva</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Agua -->
+      <div class="service-card">
+        <div class="service-header">
+          <span class="service-icon">💧</span>
+          <div class="service-title">Sistema de Agua Potable</div>
+        </div>
+        <div class="service-body">
+          <!-- IMAGEN 3: Red de agua -->
+          <div class="img-block service-img" id="img-agua">
+            <img 
+              src="img/Red_agua.png" 
+              alt="Red de agua potable ciudad futurista"
+            >
+
+          </div>
+          <ul class="service-list">
+            <li>Captación oceánica y pluvial inteligente</li>
+            <li>Plantas de nanofiltración molecular</li>
+            <li>Reservorios subterráneos presurizado</li>
+            <li>Distribución con tuberías de grafeno</li>
+            <li>Reutilización de agua al 98%</li>
+            <li>Monitoreo de calidad en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Alcantarillado y Residuos -->
+      <div class="service-card">
+        <div class="service-header">
+          <span class="service-icon">♻️</span>
+          <div class="service-title">Gestión de Residuos Circular</div>
+        </div>
+        <div class="service-body">
+          <!-- IMAGEN 4: Red de alcantarillado -->
+          <div class="img-block service-img" id="img-residuos">
+            <img 
+              src="img/Red_alcantarillado.png" 
+              alt="Red alcantarillado ciudad futurista"
+            >
+            <div class="img-placeholder">
+              <span class="img-icon">🔄</span>
+              <span class="img-label">IMAGEN · ALCANTARILLADO</span>
+              <span class="img-hint">Infografía red alcantarillado inteligente ciudad futurista</span>
+            </div>
+          </div>
+          <ul class="service-list">
+            <li>Colectores inteligentes con sensores IoT</li>
+            <li>Biodigestores que convierten residuos en gas</li>
+            <li>Clasificación automática por robots</li>
+            <li>Planta de tratamiento de aguas residuales</li>
+            <li>Redes de gasificación (prompt IA incluído)</li>
+            <li>Cero vertederos: economía 100% circular</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Imagen gasificación separada -->
+    <div class="two-col reveal" style="margin-top:3rem;">
+      <div>
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--white);margin-bottom:.8rem;">Red de Gasificación Urbana</h3>
+        <p style="font-size:.88rem;line-height:1.75;color:rgba(200,224,255,.6);margin-bottom:1rem;">
+          Gasoductos de última generación distribuyen hidrógeno verde y gas sintético a toda la ciudad. Tres domos esféricos de almacenamiento regulan la presión para los 4 millones de hogares. Válvulas inteligentes previenen fugas con sensores moleculares.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Hidrógeno Verde</span>
+          <span class="tag">Gas Sintético</span>
+          <span class="tag">Válvulas Smart</span>
+          <span class="tag">Monitoreo 24/7</span>
+        </div>
+      </div>
+      <!-- IMAGEN 5: Gasificación -->
+      <div class="img-block" id="img-gas" style="aspect-ratio:4/3;">
+        <img 
+          src="img/Red_gasificacion.png" 
+          alt="Red de gasificación ciudad futurista"
+        <div class="img-placeholder">
+          <span class="img-icon">🔥</span>
+          <span class="img-label">IMAGEN · RED DE GASIFICACIÓN</span>
+          <span class="img-hint">Infografía red de gasificación ciudad futurista costera</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MOVILIDAD -->
+<section id="movilidad">
+  <div class="section-wrap">
+    <div class="section-label">Módulo 03</div>
+    <h2 class="section-title reveal">Ecosistema de Movilidad<br>y Transporte</h2>
+    <p class="section-desc reveal">La ciudad del futuro elimina los atascos mediante redes de transporte multicapa: subterráneo, superficial y aéreo, todo coordinado por una IA central de movilidad que optimiza flujos en milisegundos.</p>
+
+    <div class="transport-tabs reveal">
+      <button class="tab-btn active" onclick="showTab('publico', this)">🚇 Transporte Público</button>
+      <button class="tab-btn" onclick="showTab('privado', this)">🚗 Transporte Privado</button>
+      <button class="tab-btn" onclick="showTab('aereo', this)">🚁 Movilidad Aérea</button>
+    </div>
+
+    <!-- Tab: Público -->
+    <div class="tab-content active" id="tab-publico">
+      <div class="transport-info">
+        <h3>Red de Transporte Público Inteligente</h3>
+        <p>El tren de levitación magnética conecta los 12 distritos en menos de 8 minutos. Las cápsulas Hyperloop subterráneas alcanzan 900 km/h y transportan hasta 200 pasajeros en silencio total.</p>
+        <p>Los drones colectivos de 20 plazas operan rutas aéreas predefinidas entre los nodos de mayor demanda, reduciendo el tiempo de viaje urbano en un 70%.</p>
+        <div class="tag-row">
+          <span class="tag">Maglev 400km/h</span>
+          <span class="tag">Hyperloop</span>
+          <span class="tag">Drones Colectivos</span>
+          <span class="tag">IA de Flujos</span>
+          <span class="tag">Cero Emisiones</span>
+        </div>
+      </div>
+      <!-- IMAGEN 6: Transporte -->
+      <div class="img-block" id="img-transporte">
+        <img src="img/Red_transporte.png" alt="Sistema de transporte ciudad futurista" onerror="this.style.display='none'">
+        <div class="img-placeholder">
+          <span class="img-icon">🚇</span>
+          <span class="img-label">IMAGEN · SISTEMA DE TRANSPORTE</span>
+          <span class="img-hint">Sistema de transporte ciudad futurista inteligente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Privado -->
+    <div class="tab-content" id="tab-privado">
+      <div class="transport-info">
+        <h3>Vehículos Autónomos Privados</h3>
+        <p>Los vehículos autónomos de nivel 5 se comunican entre sí y con la infraestructura vial en tiempo real. El concepto de "semáforo" desaparece: los cruces se gestionan dinámicamente sin paradas.</p>
+        <p>Carriles subterráneos exclusivos para vehículos eléctricos autónomos permiten velocidades de hasta 180 km/h en trayectos interzonales.</p>
+        <div class="tag-row">
+          <span class="tag">Nivel 5 Autónomo</span>
+          <span class="tag">V2X Comunicación</span>
+          <span class="tag">Vías Subterráneas</span>
+          <span class="tag">100% Eléctrico</span>
+        </div>
+      </div>
+      <div class="img-block">
+        <div class="img-placeholder">
+          <span class="img-icon">🚗</span>
+          <span class="img-label">IMAGEN · TRANSPORTE PRIVADO</span>
+          <span class="img-hint">Vehículos autónomos y vías inteligentes ciudad futurista</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Aéreo -->
+    <div class="tab-content" id="tab-aereo">
+      <div class="transport-info">
+        <h3>Vías Aéreas Urbanas</h3>
+        <p>Corredores aéreos tridimensionales organizados en 6 altitudes distintas separan drones de carga, taxis voladores y transporte colectivo. Un sistema de control de tráfico aéreo urbano (UTMS) gestiona hasta 50.000 aeronaves simultáneamente.</p>
+        <p>Las plataformas de despegue vertical (vertiports) en cada edificio de más de 20 pisos permiten acceso directo desde los hogares.</p>
+        <div class="tag-row">
+          <span class="tag">Taxis eVTOL</span>
+          <span class="tag">Drones de Carga</span>
+          <span class="tag">UTMS IA</span>
+          <span class="tag">Vertiports</span>
+          <span class="tag">6 Altitudes</span>
+        </div>
+      </div>
+      <div class="img-block">
+        <div class="img-placeholder">
+          <span class="img-icon">🚁</span>
+          <span class="img-label">IMAGEN · MOVILIDAD AÉREA</span>
+          <span class="img-hint">Drones y taxis voladores ciudad futurista</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- UDES DEL FUTURO -->
+<section id="udes">
+  <div class="section-wrap">
+    <div class="udes-header reveal">
+      <div class="udes-badge">⭐ Pabellón Especial</div>
+      <div class="section-label" style="justify-content:center;">Módulo 04</div>
+      <h2 class="section-title udes-title">La <span>UDES</span> del Futuro</h2>
+      <p class="section-desc" style="margin:1rem auto 0;text-align:center;">
+        La Universidad de Santander lidera la transformación del conocimiento en la ciudad futurista. Sus campus flotantes, laboratorios cuánticos y aulas de realidad inmersiva forman a los constructores del mundo del mañana.
+      </p>
+    </div>
+
+    <!-- Imagen principal UDES -->
+    <div class="img-block reveal" style="aspect-ratio:21/9;margin-bottom:3rem;" id="img-udes">
+      <img src="img/udes_campus.png" alt="Campus UDES futuro" onerror="this.style.display='none'">
+
+    </div>
+
+    <div class="udes-features reveal">
+      <div class="udes-card">
+        <div class="udes-card-icon">🌐</div>
+        <div class="udes-card-title">Campus Flotante Multidimensional</div>
+        <div class="udes-card-text">Módulos habitacionales y académicos en plataformas de levitación magnética sobre el lago artificial de la ciudad. El campus principal se reconfigura dinámicamente según el horario y la demanda académica.</div>
+      </div>
+      <div class="udes-card">
+        <div class="udes-card-icon">🔮</div>
+        <div class="udes-card-title">Aulas de Realidad Inmersiva</div>
+        <div class="udes-card-text">Hologramas de alta resolución recrean cualquier entorno: desde el interior de una célula hasta la superficie de Marte. Profesores de todo el planeta interactúan en tiempo real con avatares holográficos.</div>
+      </div>
+      <div class="udes-card">
+        <div class="udes-card-icon">⚗️</div>
+        <div class="udes-card-title">Laboratorios Cuánticos</div>
+        <div class="udes-card-text">Laboratorios de computación cuántica, bioingeniería molecular y nanotecnología comparten espacio con centros de simulación climática y diseño de materiales de nueva generación.</div>
+      </div>
+      <div class="udes-card">
+        <div class="udes-card-icon">🤖</div>
+        <div class="udes-card-title">IA Tutora Personalizada</div>
+        <div class="udes-card-text">Cada estudiante tiene un asistente de IA que adapta el currículo a su estilo de aprendizaje, detecta brechas de conocimiento y propone rutas de estudio únicas con proyectos de impacto real en la ciudad.</div>
+      </div>
+      <div class="udes-card">
+        <div class="udes-card-icon">🚀</div>
+        <div class="udes-card-title">Hub de Investigación Global</div>
+        <div class="udes-card-text">Centro de investigación aplicada que colabora con las principales ciudades inteligentes del mundo. Los proyectos de estudiantes pueden implementarse directamente en la infraestructura urbana de Santander.</div>
+      </div>
+      <div class="udes-card">
+        <div class="udes-card-icon">🌿</div>
+        <div class="udes-card-title">Campus Biosustentable</div>
+        <div class="udes-card-text">El 100% de la energía proviene de paneles solares integrados en fachadas vivas. Huertos hidropónicos en terrazas abastecen los comedores. Cero residuos gracias a la economía circular universitaria.</div>
+      </div>
+    </div>
+
+    <div class="udes-showcase reveal">
+      <div class="udes-showcase-text">
+        <h3>UDES: Liderando la Educación del Siglo XXII</h3>
+        <p>Con más de 200 años de historia proyectada hacia el futuro, la Universidad de Santander se convierte en el núcleo intelectual de la ciudad futurista. Sus programas de Ingeniería de Software e IA son referentes mundiales.</p>
+        <ul class="udes-list">
+          <li>Primer campus universitario certificado en cero emisiones de carbono de América Latina</li>
+          <li>Centro de computación cuántica más avanzado de Sudamérica</li>
+          <li>80% de egresados trabaja en proyectos de infraestructura urbana inteligente</li>
+          <li>Alianzas con 150 ciudades inteligentes en 40 países</li>
+          <li>Programas de intercambio en realidad virtual con universidades de los 5 continentes</li>
+          <li>Laboratorio de IA aplicada a resolución de problemas de ciudad en tiempo real</li>
+        </ul>
+      </div>
+      <!-- IMAGEN 7: UDES laboratorio -->
+      <div class="img-block" style="aspect-ratio:4/3;" id="img-udes-lab">
+        <img src="img/laboratorio.png" alt="Laboratorio UDES futuro" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="glow-line"></div>
+<footer>
+  <div class="footer-logo">CIUDAD DEL FUTURO · UDES 2085</div>
+  <div class="footer-sub">Desarrollo Web — Último Corte · 2026</div>
+  <div class="footer-divider"></div>
+  <div class="footer-credits">
+    Tatiana Espinosa Rojas · Código: 01220371031<br>
+    Docente: Jeison Mauricio Delgado González<br>
+    Universidad de Santander · Ingeniería de Software & Ciencias de la Computación e IA<br>
+    <em style="opacity:.5;">La optimización de los procesos está en nuestras manos.</em>
+  </div>
+</footer>
+
+<script>
+  // ─── SKYLINE GENERATOR ───
+  const skyline = document.getElementById('skyline');
+  const buildings = [
+    {w:18,h:140},{w:24,h:200},{w:30,h:180},{w:20,h:240},{w:36,h:260},{w:28,h:300},
+    {w:22,h:200},{w:40,h:280},{w:26,h:220},{w:32,h:190},{w:24,h:250},{w:18,h:160},
+    {w:28,h:180},{w:20,h:210},{w:34,h:240},{w:22,h:170},{w:26,h:230},{w:16,h:130},
+    {w:30,h:195},{w:24,h:215}
+  ];
+  buildings.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'building';
+    el.style.cssText = `width:${b.w}px;height:${b.h}px;animation-delay:${Math.random()*3}s`;
+    // random windows
+    const wCount = Math.floor(b.w/7) * Math.floor(b.h/15);
+    let winHtml = '';
+    for(let i=0;i<wCount;i++){
+      if(Math.random()>.4) winHtml += `<span style="position:absolute;width:4px;height:5px;background:rgba(0,245,255,${.2+Math.random()*.5});left:${3+Math.floor(i%(Math.floor(b.w/7)))*7}px;top:${5+Math.floor(i/Math.floor(b.w/7))*15}px;"></span>`;
+    }
+    el.innerHTML = winHtml;
+    skyline.appendChild(el);
+  });
+
+  // ─── TABS ───
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── IMAGE PLACEHOLDER TOGGLE ───
+  // When you set the src of an img inside .img-block, hide the placeholder
+  document.querySelectorAll('.img-block img').forEach(img => {
+    if(img.src && img.src !== window.location.href) {
+      img.style.display = 'block';
+      const ph = img.nextElementSibling;
+      if(ph) ph.style.display = 'none';
+    }
+    img.addEventListener('load', () => {
+      img.style.display = 'block';
+      const ph = img.nextElementSibling;
+      if(ph) ph.style.display = 'none';
+    });
+  });
+
+</script>
+
+<script>
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImg");
+const closeModal = document.getElementById("closeModal");
+
+/* Todas las imágenes */
+document.querySelectorAll(".img-block img").forEach(img => {
+
+  img.addEventListener("click", () => {
+    modal.style.display = "flex";
+    modalImg.src = img.src;
+  });
+
+});
+
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+modal.addEventListener("click", (e) => {
+  if(e.target === modal){
+    modal.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>
